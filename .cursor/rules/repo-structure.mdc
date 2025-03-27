@@ -1,0 +1,14 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Your rule content
+
+This is our structure:
+cmd/api/ - Backend API entry point
+internal/ - Backend implementation
+server/ - HTTP server setup
+database/ - Database interaction
+frontend/ - React frontend application
