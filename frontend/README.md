@@ -1,4 +1,4 @@
-# VibeSocial - Social Media Homepage
+# MemeTrader - Social Media Homepage
 
 A responsive social media homepage built with React and Tailwind CSS v4.
 

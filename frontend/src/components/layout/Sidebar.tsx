@@ -100,7 +100,7 @@ const Sidebar = () => {
                             <a href="/advertising" className="hover:underline" tabIndex={0}>Advertising</a>
                         </div>
                         <div className="mt-2">
-                            © 2023 VibeSocial Corporation
+                            © 2023 MemeTrader Corporation
                         </div>
                     </div>
                 </div>
