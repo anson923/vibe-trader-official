@@ -25,7 +25,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                         <div className="hidden xl:block absolute left-1/4 top-0 bottom-0 w-px bg-gray-200 dark:bg-gray-700" aria-hidden="true" />
 
                         {/* Main Content - 2/4 width on xl screens */}
-                        <main className="col-span-1 xl:col-span-2 py-6 px-4">
+                        <main id="main-content" className="col-span-1 xl:col-span-2 py-6 px-4">
                             {children}
                         </main>
 

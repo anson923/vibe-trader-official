@@ -1,4 +1,15 @@
+import { useRef, useEffect, useState, useCallback } from 'react';
+
 const Sidebar = () => {
+    const sidebarRef = useRef<HTMLDivElement>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
+    const [isLocked, setIsLocked] = useState(false);
+    const [sidebarHeight, setSidebarHeight] = useState(0);
+    const [contentHeight, setContentHeight] = useState(0);
+    const [sidebarBottom, setSidebarBottom] = useState(0);
+    const [prevScrollY, setPrevScrollY] = useState(0);
+    const [sidebarPosition, setSidebarPosition] = useState(0);
+
     const trendingTopics = [
         { id: 1, name: '#ReactJS', posts: 1234 },
         { id: 2, name: '#TailwindCSS', posts: 987 },
@@ -13,9 +24,128 @@ const Sidebar = () => {
         { id: 'user7', name: 'Sarah Garcia', username: 'sarahgarcia', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah' },
     ];
 
+    // Calculate heights and positions
+    const updateHeights = useCallback(() => {
+        if (sidebarRef.current && contentRef.current) {
+            setSidebarHeight(sidebarRef.current.scrollHeight);
+            setContentHeight(contentRef.current.scrollHeight);
+            const sidebarRect = sidebarRef.current.getBoundingClientRect();
+            setSidebarBottom(sidebarRect.bottom);
+        }
+    }, []);
+
+    // Find the main content element in the DOM
+    useEffect(() => {
+        // Find the main content panel by selecting the main element with ID
+        const mainElement = document.getElementById('main-content');
+        
+        if (mainElement) {
+            contentRef.current = mainElement as HTMLDivElement;
+            
+            // Set up a ResizeObserver to detect content changes
+            const resizeObserver = new ResizeObserver(() => {
+                updateHeights();
+            });
+            
+            resizeObserver.observe(mainElement);
+            
+            // Initial update with a small delay to ensure accurate measurements
+            setTimeout(updateHeights, 100);
+            
+            return () => {
+                resizeObserver.disconnect();
+            };
+        }
+    }, [updateHeights]);
+
+    // Update measurements when component mounts and on window resize
+    useEffect(() => {
+        const handleResize = () => {
+            updateHeights();
+            // Reset locked state on resize to recalculate
+            setIsLocked(false);
+            setSidebarPosition(0);
+        };
+        
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [updateHeights]);
+
+    // Handle scroll synchronization
+    useEffect(() => {
+        const handleScroll = () => {
+            if (!contentRef.current || !sidebarRef.current) return;
+            
+            const currentScrollY = window.scrollY;
+            const scrollDirection = currentScrollY > prevScrollY ? 'down' : 'up';
+            const scrollDifference = Math.abs(currentScrollY - prevScrollY);
+            
+            const viewportHeight = window.innerHeight;
+            const sidebarContainer = sidebarRef.current.parentElement as HTMLDivElement;
+            
+            // For smoother transitions, apply CSS transitions
+            sidebarRef.current.style.transition = 'transform 0.05s ease-out';
+            
+            // Calculate if we've reached the bottom of the sidebar
+            const shouldLock = 
+                sidebarHeight > viewportHeight && 
+                currentScrollY + viewportHeight >= sidebarBottom;
+            
+            // Apply different logic based on scroll direction
+            if (scrollDirection === 'up') {
+                // When scrolling up, always synchronize the sidebar
+                if (isLocked) {
+                    // If we were locked, unlock and start tracking from current position
+                    setIsLocked(false);
+                }
+                
+                // Synchronize by moving the sidebar down (decrease negative position)
+                let newPosition = sidebarPosition - scrollDifference;
+                // Don't go above the initial position (0)
+                newPosition = Math.max(newPosition, 0);
+                
+                setSidebarPosition(newPosition);
+                sidebarRef.current.style.transform = `translateY(-${newPosition}px)`;
+            } else if (scrollDirection === 'down') {
+                // Only when not locked, track the position but don't move
+                if (!isLocked) {
+                    // Keep track of where we would be if synchronizing
+                    let newPosition = sidebarPosition + scrollDifference;
+                    
+                    // Check if sidebar would reach bottom
+                    const maxPosition = sidebarHeight - viewportHeight + 64; // 64px for header offset
+                    
+                    if (newPosition >= maxPosition) {
+                        newPosition = maxPosition;
+                        setIsLocked(true);
+                    }
+                    
+                    setSidebarPosition(newPosition);
+                    // When scrolling down, the sidebar stays in place
+                    // We only update its transform if it's reached the bottom
+                    if (newPosition >= maxPosition) {
+                        sidebarRef.current.style.transform = `translateY(-${maxPosition}px)`;
+                    }
+                }
+            }
+            
+            setPrevScrollY(currentScrollY);
+        };
+        
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [isLocked, sidebarHeight, contentHeight, sidebarBottom, prevScrollY, sidebarPosition]);
+
     return (
-        <aside className="sticky top-16 h-[calc(100vh-64px)] w-full">
-            <div className="flex flex-col h-full">
+        <aside className="sticky top-16 h-[calc(100vh-64px)] w-full overflow-hidden">
+            <div 
+                ref={sidebarRef} 
+                className="flex flex-col will-change-transform" 
+                style={{ 
+                    transform: 'translateY(0)', 
+                    transformOrigin: 'top' 
+                }}
+            >
                 <div className="flex-grow space-y-4 pl-4">
                     {/* Search Bar */}
                     <div className="backdrop-blur-sm rounded-xl shadow-sm p-4 transition-colors border border-gray-200 dark:border-gray-700">
