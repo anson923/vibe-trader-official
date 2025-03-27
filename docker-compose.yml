@@ -1,3 +1,5 @@
+#Run prod:
+#docker compose -f sth.yml up -d
 services:
   # app:
   #   build:
