@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const MobileNav = () => {
     return (
         <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 shadow-lg z-50">
             <div className="flex items-center justify-around h-16">
-                <a
-                    href="/"
+                <Link
+                    to="/"
                     className="flex flex-col items-center justify-center flex-1 h-full text-gray-700 hover:text-indigo-600 dark:text-gray-200 dark:hover:text-indigo-400 transition-colors"
                     aria-label="Home"
                     tabIndex={0}
@@ -25,10 +26,33 @@ const MobileNav = () => {
                         />
                     </svg>
                     <span className="text-xs mt-1">Home</span>
-                </a>
+                </Link>
 
-                <a
-                    href="/messages"
+                <Link
+                    to="/search"
+                    className="flex flex-col items-center justify-center flex-1 h-full text-gray-700 hover:text-indigo-600 dark:text-gray-200 dark:hover:text-indigo-400 transition-colors"
+                    aria-label="Search"
+                    tabIndex={0}
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-6 h-6"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                        />
+                    </svg>
+                    <span className="text-xs mt-1">Search</span>
+                </Link>
+
+                <Link
+                    to="/messages"
                     className="flex flex-col items-center justify-center flex-1 h-full text-gray-700 hover:text-indigo-600 dark:text-gray-200 dark:hover:text-indigo-400 transition-colors"
                     aria-label="Messages"
                     tabIndex={0}
@@ -48,10 +72,10 @@ const MobileNav = () => {
                         />
                     </svg>
                     <span className="text-xs mt-1">Messages</span>
-                </a>
+                </Link>
 
-                <a
-                    href="/notifications"
+                <Link
+                    to="/notifications"
                     className="flex flex-col items-center justify-center flex-1 h-full text-gray-700 hover:text-indigo-600 dark:text-gray-200 dark:hover:text-indigo-400 transition-colors"
                     aria-label="Notifications"
                     tabIndex={0}
@@ -71,10 +95,10 @@ const MobileNav = () => {
                         />
                     </svg>
                     <span className="text-xs mt-1">Notifications</span>
-                </a>
+                </Link>
 
-                <a
-                    href="/profile"
+                <Link
+                    to="/profile"
                     className="flex flex-col items-center justify-center flex-1 h-full text-gray-700 hover:text-indigo-600 dark:text-gray-200 dark:hover:text-indigo-400 transition-colors"
                     aria-label="Profile"
                     tabIndex={0}
@@ -85,7 +109,7 @@ const MobileNav = () => {
                         className="w-6 h-6 rounded-full"
                     />
                     <span className="text-xs mt-1">Profile</span>
-                </a>
+                </Link>
             </div>
         </nav>
     );

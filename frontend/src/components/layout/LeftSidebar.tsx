@@ -1,12 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const LeftSidebar = () => {
     return (
         <aside className="sticky top-0 h-[calc(100vh-64px)] w-full flex items-center">
             <nav className="w-full px-8 py-6">
                 <div className="flex flex-col items-stretch space-y-6 max-w-xs mx-auto">
-                    <a
-                        href="/"
+                    <Link
+                        to="/"
                         className="flex items-center w-full px-6 py-5 text-gray-700 hover:bg-gray-100/30 dark:text-gray-200 dark:hover:bg-gray-800/30 transition-all duration-200 ease-in-out"
                         aria-label="Home"
                         tabIndex={0}
@@ -26,10 +27,33 @@ const LeftSidebar = () => {
                             />
                         </svg>
                         <span className="text-xl font-medium">Home</span>
-                    </a>
+                    </Link>
 
-                    <a
-                        href="/messages"
+                    <Link
+                        to="/search"
+                        className="flex items-center w-full px-6 py-5 text-gray-700 hover:bg-gray-100/30 dark:text-gray-200 dark:hover:bg-gray-800/30 transition-all duration-200 ease-in-out"
+                        aria-label="Search"
+                        tabIndex={0}
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-8 h-8 mr-5 flex-shrink-0"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                            />
+                        </svg>
+                        <span className="text-xl font-medium">Search</span>
+                    </Link>
+
+                    <Link
+                        to="/messages"
                         className="flex items-center w-full px-6 py-5 text-gray-700 hover:bg-gray-100/30 dark:text-gray-200 dark:hover:bg-gray-800/30 transition-all duration-200 ease-in-out"
                         aria-label="Messages"
                         tabIndex={0}
@@ -49,10 +73,10 @@ const LeftSidebar = () => {
                             />
                         </svg>
                         <span className="text-xl font-medium">Messages</span>
-                    </a>
+                    </Link>
 
-                    <a
-                        href="/notifications"
+                    <Link
+                        to="/notifications"
                         className="flex items-center w-full px-6 py-5 text-gray-700 hover:bg-gray-100/30 dark:text-gray-200 dark:hover:bg-gray-800/30 transition-all duration-200 ease-in-out"
                         aria-label="Notifications"
                         tabIndex={0}
@@ -72,7 +96,7 @@ const LeftSidebar = () => {
                             />
                         </svg>
                         <span className="text-xl font-medium">Notifications</span>
-                    </a>
+                    </Link>
                 </div>
             </nav>
         </aside>

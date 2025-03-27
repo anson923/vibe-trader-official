@@ -18,37 +18,6 @@ const Navbar = () => {
                         </a>
                     </div>
 
-                    {/* Search Bar - Hidden on mobile */}
-                    <div className="hidden md:block flex-grow max-w-md mx-8">
-                        <div className="relative">
-                            <input
-                                type="text"
-                                placeholder="Search..."
-                                className="w-full px-4 py-2 rounded-full bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
-                            />
-                            <button
-                                type="button"
-                                className="absolute right-3 top-2.5"
-                                aria-label="Search"
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={1.5}
-                                    stroke="currentColor"
-                                    className="w-5 h-5 text-gray-500 dark:text-gray-400"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-
                     {/* Profile Button */}
                     <div className="hidden md:flex items-center">
                         <a
@@ -106,13 +75,7 @@ const Navbar = () => {
             {isMenuOpen && (
                 <div className="md:hidden bg-white shadow-lg dark:bg-gray-900">
                     <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                        <div className="py-2">
-                            <input
-                                type="text"
-                                placeholder="Search..."
-                                className="w-full px-4 py-2 rounded-full bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-200"
-                            />
-                        </div>
+                        {/* Mobile menu content */}
                     </div>
                 </div>
             )}
