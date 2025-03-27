@@ -14,7 +14,7 @@ const Sidebar = () => {
     ];
 
     return (
-        <aside className="w-80 flex-shrink-0">
+        <aside className="w-full">
             <div className="space-y-4 pl-4">
                 {/* Search Bar */}
                 <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4">
