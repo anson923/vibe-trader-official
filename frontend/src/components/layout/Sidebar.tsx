@@ -14,8 +14,8 @@ const Sidebar = () => {
     ];
 
     return (
-        <aside className="hidden lg:block w-80 flex-shrink-0">
-            <div className="sticky top-20 space-y-6">
+        <aside className="w-80 flex-shrink-0">
+            <div className="space-y-4 pl-4">
                 {/* Search Bar */}
                 <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4">
                     <input
