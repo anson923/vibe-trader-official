@@ -24,6 +24,6 @@ You will do the following summary after each response:
 
 The markdown filename should be {date}_{supershort_summary}.md for example: 20250305_detail_post_redesign.md
 20250328_left_sidebar_add_buttons.md
-Make sure the {date} is the today's day, current time Date, always use current Date.
+Make sure the {date} is the today's day, use terminal to search $ date to get the today's date the format: {Year}{Month}
 
 These md files should be saved inside the /frontend/ChangeLog/{Year}_{Month} folder path. The Year and Month should be current Now Date, if the folder exist, just put the new md file into that folder. If doesn't exist, create a new folder and put the new md file into that new folder.
