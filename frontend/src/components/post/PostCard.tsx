@@ -1,17 +1,19 @@
 import { useState } from 'react';
 import { Post } from '../../types/post';
-import CommentSection from '../comment/CommentSection';
 
 interface PostCardProps {
     post: Post;
+    onClick?: () => void;
 }
 
-const PostCard = ({ post }: PostCardProps) => {
+const PostCard = ({ post, onClick }: PostCardProps) => {
     const [isLiked, setIsLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(post.likes);
-    const [showComments, setShowComments] = useState(false);
 
-    const handleLike = () => {
+    const handleLike = (e: React.MouseEvent) => {
+        // Prevent event bubbling to parent (clicking post)
+        e.stopPropagation();
+
         if (isLiked) {
             setLikeCount(likeCount - 1);
         } else {
@@ -20,8 +22,20 @@ const PostCard = ({ post }: PostCardProps) => {
         setIsLiked(!isLiked);
     };
 
-    const handleToggleComments = () => {
-        setShowComments(!showComments);
+    const handlePostClick = () => {
+        if (onClick) onClick();
+    };
+
+    const handleCommentClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        if (onClick) onClick();
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            if (onClick) onClick();
+        }
     };
 
     const formatDate = (dateString: string) => {
@@ -34,7 +48,14 @@ const PostCard = ({ post }: PostCardProps) => {
     };
 
     return (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden mb-6">
+        <div
+            className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden mb-6 transition-all duration-200 hover:shadow-md hover:translate-y-[-2px] cursor-pointer"
+            onClick={handlePostClick}
+            onKeyDown={handleKeyDown}
+            tabIndex={0}
+            role="button"
+            aria-label={`View post by ${post.author.name}: ${post.content.substring(0, 50)}${post.content.length > 50 ? '...' : ''}`}
+        >
             {/* Post Header */}
             <div className="flex items-center p-4">
                 <img
@@ -78,8 +99,8 @@ const PostCard = ({ post }: PostCardProps) => {
             <div className="flex justify-around py-2 border-t border-gray-100 dark:border-gray-700">
                 <button
                     className={`flex items-center px-4 py-2 rounded-md transition-colors ${isLiked
-                            ? 'text-red-500 dark:text-red-400'
-                            : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                        ? 'text-red-500 dark:text-red-400'
+                        : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                         }`}
                     onClick={handleLike}
                     aria-label={isLiked ? 'Unlike post' : 'Like post'}
@@ -104,8 +125,8 @@ const PostCard = ({ post }: PostCardProps) => {
 
                 <button
                     className="flex items-center px-4 py-2 text-gray-600 dark:text-gray-300 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-                    onClick={handleToggleComments}
-                    aria-label={showComments ? 'Hide comments' : 'Show comments'}
+                    onClick={handleCommentClick}
+                    aria-label="Comment on post"
                     tabIndex={0}
                 >
                     <svg
@@ -129,6 +150,7 @@ const PostCard = ({ post }: PostCardProps) => {
                     className="flex items-center px-4 py-2 text-gray-600 dark:text-gray-300 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                     aria-label="Share post"
                     tabIndex={0}
+                    onClick={(e) => e.stopPropagation()} // Prevent event bubbling
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -147,9 +169,6 @@ const PostCard = ({ post }: PostCardProps) => {
                     <span>Share</span>
                 </button>
             </div>
-
-            {/* Comments Section */}
-            {showComments && <CommentSection comments={post.comments} postId={post.id} />}
         </div>
     );
 };

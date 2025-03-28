@@ -24,7 +24,33 @@ export const mockPosts: Post[] = [
                 },
                 content: 'Looks great! What features did you implement?',
                 createdAt: '2023-04-15T10:45:00.000Z',
-                likes: 5
+                likes: 5,
+                replies: [
+                    {
+                        id: 'reply1',
+                        author: {
+                            id: 'user1',
+                            name: 'John Doe',
+                            avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=John',
+                            username: 'johndoe'
+                        },
+                        content: 'I implemented user authentication, data persistence, and responsive design!',
+                        createdAt: '2023-04-15T11:15:00.000Z',
+                        likes: 2
+                    },
+                    {
+                        id: 'reply2',
+                        author: {
+                            id: 'user4',
+                            name: 'Alice Williams',
+                            avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Alice',
+                            username: 'alicewilliams'
+                        },
+                        content: 'I\'d love to see a demo sometime!',
+                        createdAt: '2023-04-15T11:30:00.000Z',
+                        likes: 1
+                    }
+                ]
             },
             {
                 id: 'comment2',
@@ -36,7 +62,21 @@ export const mockPosts: Post[] = [
                 },
                 content: 'I\'ve been wanting to try Tailwind. How was the learning curve?',
                 createdAt: '2023-04-15T11:00:00.000Z',
-                likes: 3
+                likes: 3,
+                replies: [
+                    {
+                        id: 'reply3',
+                        author: {
+                            id: 'user1',
+                            name: 'John Doe',
+                            avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=John',
+                            username: 'johndoe'
+                        },
+                        content: 'It was surprisingly easy! The documentation is excellent.',
+                        createdAt: '2023-04-15T11:45:00.000Z',
+                        likes: 2
+                    }
+                ]
             }
         ]
     },
@@ -63,7 +103,21 @@ export const mockPosts: Post[] = [
                 },
                 content: 'Wow! Which beach is this?',
                 createdAt: '2023-04-14T19:25:00.000Z',
-                likes: 2
+                likes: 2,
+                replies: [
+                    {
+                        id: 'reply4',
+                        author: {
+                            id: 'user2',
+                            name: 'Jane Smith',
+                            avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Jane',
+                            username: 'janesmith'
+                        },
+                        content: 'It\'s Malibu Beach! Have you been there?',
+                        createdAt: '2023-04-14T19:35:00.000Z',
+                        likes: 1
+                    }
+                ]
             }
         ]
     },
@@ -103,7 +157,21 @@ export const mockPosts: Post[] = [
                 },
                 content: 'What\'s the title? I\'ve been looking for a good read on AI!',
                 createdAt: '2023-04-12T09:30:00.000Z',
-                likes: 1
+                likes: 1,
+                replies: [
+                    {
+                        id: 'reply5',
+                        author: {
+                            id: 'user4',
+                            name: 'Alice Williams',
+                            avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Alice',
+                            username: 'alicewilliams'
+                        },
+                        content: '"Artificial Intelligence: A Modern Approach" by Stuart Russell and Peter Norvig. It\'s a classic!',
+                        createdAt: '2023-04-12T10:00:00.000Z',
+                        likes: 3
+                    }
+                ]
             }
         ]
     }

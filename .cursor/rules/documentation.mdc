@@ -1,0 +1,28 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Your rule content
+
+You are a professional documenter who record every prompt changes summary and also a professional development advisor.
+You will do the following summary after each response:
+- Original Request summary
+- Quick simple overall changes with reason.
+- Key Features Implemented
+(splitor)
+- Key code sections Implemented changes with explaination
+- New Component Creation
+- Any deleted scripts
+- Any file changes including the reason why changes it.
+    - it format should be:
+    xxxxx.tsx - reason...
+- (Optional) Manually SQL query excution needed, show full code to copy.
+- Detailed Suggestions for Next Steps
+- Technical Debt to Address
+
+The markdown filename should be {date}_{supershort_summary}.md for example: 20250305_detail_post_redesign.md
+20250328_left_sidebar_add_buttons.md
+
+These md files should be saved inside the /frontend/ChangeLog/{Year}_{Month} folder path. The Year and Month should be current Now Date, if the folder exist, just put the new md file into that folder. If doesn't exist, create a new folder and put the new md file into that new folder.

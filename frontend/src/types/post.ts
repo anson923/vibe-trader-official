@@ -11,6 +11,7 @@ export interface Comment {
     content: string;
     createdAt: string;
     likes: number;
+    replies?: Comment[];
 }
 
 export interface Post {
