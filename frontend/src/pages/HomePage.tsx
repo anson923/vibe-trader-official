@@ -50,7 +50,7 @@ const HomePage = () => {
     };
 
     return (
-        <MainLayout>
+        <MainLayout onHomeClick={handleBackToFeed}>
             {selectedPost ? (
                 <DetailedPostView post={selectedPost} onBack={handleBackToFeed} />
             ) : (

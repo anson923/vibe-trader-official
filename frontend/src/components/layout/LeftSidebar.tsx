@@ -1,13 +1,29 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-const LeftSidebar = () => {
+interface LeftSidebarProps {
+    onHomeClick?: () => void;
+}
+
+const LeftSidebar = ({ onHomeClick }: LeftSidebarProps) => {
+    const location = useLocation();
+    const isHomePage = location.pathname === '/';
+
+    // If we're on the home page and a handler is provided, use it, otherwise regular navigation
+    const handleHomeClick = (e: React.MouseEvent) => {
+        if (isHomePage && onHomeClick) {
+            e.preventDefault();
+            onHomeClick();
+        }
+    };
+
     return (
         <aside className="sticky top-0 h-[calc(100vh-64px)] w-full flex items-center">
             <nav className="w-full px-8 py-6">
                 <div className="flex flex-col items-stretch space-y-6 max-w-xs mx-auto">
                     <Link
                         to="/"
+                        onClick={handleHomeClick}
                         className="flex items-center w-full px-6 py-5 text-gray-700 hover:bg-gray-100/30 dark:text-gray-200 dark:hover:bg-gray-800/30 transition-all duration-200 ease-in-out"
                         aria-label="Home"
                         tabIndex={0}

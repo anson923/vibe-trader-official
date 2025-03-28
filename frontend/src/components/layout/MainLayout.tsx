@@ -6,9 +6,10 @@ import MobileNav from './MobileNav';
 
 interface MainLayoutProps {
     children: ReactNode;
+    onHomeClick?: () => void;
 }
 
-const MainLayout = ({ children }: MainLayoutProps) => {
+const MainLayout = ({ children, onHomeClick }: MainLayoutProps) => {
     return (
         <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
             <Navbar />
@@ -18,7 +19,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                     <div className="grid grid-cols-1 xl:grid-cols-4 gap-4 relative">
                         {/* Left Sidebar - 1/4 width on xl screens */}
                         <div className="hidden xl:block col-span-1">
-                            <LeftSidebar />
+                            <LeftSidebar onHomeClick={onHomeClick} />
                         </div>
 
                         {/* Left Vertical Separator */}
@@ -41,7 +42,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
             </div>
 
             {/* Mobile Navigation - Only visible on small screens */}
-            <MobileNav />
+            <MobileNav onHomeClick={onHomeClick} />
         </div>
     );
 };

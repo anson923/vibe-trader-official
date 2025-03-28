@@ -1,12 +1,28 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-const MobileNav = () => {
+interface MobileNavProps {
+    onHomeClick?: () => void;
+}
+
+const MobileNav = ({ onHomeClick }: MobileNavProps) => {
+    const location = useLocation();
+    const isHomePage = location.pathname === '/';
+
+    // If we're on the home page and a handler is provided, use it, otherwise regular navigation
+    const handleHomeClick = (e: React.MouseEvent) => {
+        if (isHomePage && onHomeClick) {
+            e.preventDefault();
+            onHomeClick();
+        }
+    };
+
     return (
         <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 shadow-lg z-50">
             <div className="flex items-center justify-around h-16">
                 <Link
                     to="/"
+                    onClick={handleHomeClick}
                     className="flex flex-col items-center justify-center flex-1 h-full text-gray-700 hover:text-indigo-600 dark:text-gray-200 dark:hover:text-indigo-400 transition-colors"
                     aria-label="Home"
                     tabIndex={0}
