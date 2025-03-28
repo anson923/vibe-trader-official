@@ -38,10 +38,14 @@ const HomePage = () => {
     };
 
     const handlePostClick = (post: Post) => {
+        // Scroll to top when viewing a post detail
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         setSelectedPost(post);
     };
 
     const handleBackToFeed = () => {
+        // Scroll to top when returning to feed
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         setSelectedPost(null);
     };
 
